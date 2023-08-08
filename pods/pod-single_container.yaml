@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mynginx
+  namespace: default
+spec:
+  containers:
+    - name: mynginx
+      image: nginx
+      command:
+        - sleep
+        - "3600"
