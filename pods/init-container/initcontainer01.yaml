@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-container01
+  namespace: default
+spec:
+  initContainers:
+  - name: install
+    image: ubuntu
+    command:
+    - sleep
+    - "30"
+  containers:
+  - name: mynginx
+    image: nginx
+    ports:
+      - containerPort: 80
