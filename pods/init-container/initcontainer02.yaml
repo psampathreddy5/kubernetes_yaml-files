@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-container022
+spec:
+  containers:
+  - name: mynginx
+    image: nginx
+    ports:
+      - containerPort: 80
+    volumeMounts:
+    - name: workdir
+      mountPath: /usr/share/nginx/html
+# The above container will run after initlizing the init contaienr
+  initContainers:
+  - name: install
+    image: busybox
+    command: 
+    - wget
+    - "-O"
+    - "/work-dir/index.html"
+    - http://info.cern.ch
+    volumeMounts:
+    - name: workdir
+      mountPath: "/work-dir"   
+  volumes:
+  - name: workdir
+    emptyDir: {}

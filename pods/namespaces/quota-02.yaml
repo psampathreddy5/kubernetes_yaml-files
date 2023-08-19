@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: quota
+  namespace: sampath-ns
+spec:
+  hard:
+    limits.cpu: "400m"
+    limits.memory: "400Mi"
+    limits.ephemeral-storage: "4Gi"
+    
+    requests.cpu: "200m"
+    requests.memory: "200Mi"
+    requests.ephemeral-storage: "2Gi"
+
