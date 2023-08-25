@@ -1,0 +1,30 @@
+# security context at pod level 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: security-context-demo-01
+  namespace: default
+spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000
+  volumes:
+    - name: mynginx-volume
+      emptyDir: {}
+  containers:
+    - name: mynginx
+      image: nginx
+      command:
+        - sleep
+        - "3600"
+      securityContext:
+      allowPrilivegeEscalation: false
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "100m"
+        limits:
+          memory: "128Mi"
+          cpu: "200m"

@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-01
+  namespace: default   # 'nameSpace' should be 'namespace'
+spec:
+  completions: 3        # Total number of pods to complete (run)
+  ttlSecondsAfterFinished: 60  # Time to live after the job completes
+  template:
+    metadata:
+      creationTimestamp: null  # It's not necessary to specify 'creationTimestamp'
+    spec:
+      containers:
+      - name: job-01
+        image: busybox
+        resources: {}
+        command:
+          - sleep
+          - "60"
+      restartPolicy: Never
+status: {}      

@@ -1,0 +1,29 @@
+# In this security context  we have addaded capabilites (all linux capabilites) at container level
+apiVersion: v1
+kind: Pod
+metadata:
+  name: security-context-demo-03
+  namespace: default
+spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000
+  containers:
+    - name: myubuntu
+      image: ubuntu
+      command:
+        - sleep
+        - "3600"
+      securityContext:
+        capabilities:
+          add: ["NET_ADMIN"]
+          drop: ["MKNOD"]
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "100Mi"
+        limits:
+          cpu: "200m"
+          memory: "200Mi"
+          

@@ -1,0 +1,23 @@
+# basic template of cornjob  , in this added the parallelism and completions and , test this file 
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-02
+  namespace: default
+spec:
+  schedule: "*/1 * * * *"  
+  jobTemplate:
+    spec:
+      completions: 10        # Total number of pods to complete (run)
+      parallelism: 10        # Number of pods to run concurrently
+      template:
+        spec:
+          containers:
+          - name: cronjob-02
+            image: busybox
+            args:
+            - /bin/shss
+            - -c
+            - date; echo hello from kubernetes cluster
+          restartPolicy: OnFailure
+

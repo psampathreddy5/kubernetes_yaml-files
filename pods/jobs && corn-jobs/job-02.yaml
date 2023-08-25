@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-02
+  namespace: default
+spec:
+  completions: 3        # Total number of pods to complete (run)
+  parallelism: 3        # Number of pods to run concurrently
+  ttlSecondsAfterFinished: 60  # Time to live after the job completes
+  template:
+    metadata:
+      creationTimestamp: null  # No need to specify this
+    spec:
+      containers:
+      - name: job-02
+        image: busybox
+        resources: {}       # You can add resource limits here
+        command:
+          - sleep
+          - "60"
+      restartPolicy: Never  # Pods won't be restarted after completion
+status: {}  # Leave this as it is
+

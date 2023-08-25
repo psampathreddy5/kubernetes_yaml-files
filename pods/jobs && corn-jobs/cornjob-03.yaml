@@ -1,0 +1,24 @@
+# basic template of cornjob  , in this added the parallelism and completions and ttl.seconds , test this file 
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-03
+  namespace: default
+spec:
+  schedule: "*/1 * * * *"  
+  jobTemplate:
+    spec:
+      completions: 10        # Total number of pods to complete (run)
+      parallelism: 10       # Number of pods to run concurrently
+      ttlSecondsAfterFinished: 60  # Time to live after the job completes
+      template:
+        spec:
+          containers:
+          - name: cronjob-03
+            image: busybox
+            args:
+            - /bin/shss
+            - -c
+            - date; echo hello from kubernetes cluster
+          restartPolicy: OnFailure
+

@@ -1,0 +1,21 @@
+# basic template of cornjob  
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-01
+  namespace: default
+spec:
+  schedule: "*/1 * * * *"  
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cronjob-01
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - date; echo hello from kubernetes cluster
+          restartPolicy: OnFailure
+
